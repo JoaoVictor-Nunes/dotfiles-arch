@@ -1,0 +1,254 @@
+local M = {}
+
+-- Inspired by <https://github.com/MariaSolOs/dotfiles/blob/main/.config/nvim/lua/statusline.lua>
+
+-- Don't show the command that produced the quickfix list.
+vim.g.qf_disable_statusline = 1
+
+local api = vim.api
+
+api.nvim_set_hl(0, "StatusLinePathDir", { link = "Visual" })
+api.nvim_set_hl(0, "StatusLineVimSelection", { link = "TermCursor" })
+api.nvim_set_hl(0, "StatusLineVimSpell", { link = "Function" })
+-- not using DapBreakpoint to make it more distinguishable when there are errors in diagnostics
+api.nvim_set_hl(0, "StatusLineDapIcon", { link = "Title" })
+api.nvim_set_hl(0, "StatusLineAutoFormat", { link = "DiagnosticWarn" })
+
+M.vim_diagnostics = function()
+    -- Verifica se a função existe
+    if not vim.diagnostic or not vim.diagnostic.count then
+        return ""
+    end
+    
+    -- Usa a forma correta da API com tabela de opções
+    local errors = vim.diagnostic.count(0, { severity = vim.diagnostic.severity.ERROR }) or 0
+    local warnings = vim.diagnostic.count(0, { severity = vim.diagnostic.severity.WARN }) or 0
+    local infos = vim.diagnostic.count(0, { severity = vim.diagnostic.severity.INFO }) or 0
+    local hints = vim.diagnostic.count(0, { severity = vim.diagnostic.severity.HINT }) or 0
+    
+    -- Cria string formatada
+    local parts = {}
+    if errors > 0 then
+        table.insert(parts, "E:" .. errors)
+    end
+    if warnings > 0 then
+        table.insert(parts, "W:" .. warnings)
+    end
+    if infos > 0 then
+        table.insert(parts, "I:" .. infos)
+    end
+    if hints > 0 then
+        table.insert(parts, "H:" .. hints)
+    end
+    
+    if #parts == 0 then
+        return ""
+    end
+    
+    return string.format(" %s ", table.concat(parts, " "))
+end
+        return ""
+    end
+
+    return string.format(" %s ", table.concat(parts, " "))
+end
+
+M.git_branch = function()
+    ---@type string?
+    local result = vim.b.gitsigns_head or vim.g.gitsigns_head
+
+    if not result or result == "" then
+        return ""
+    end
+
+    local hl = require("ui.shared").get_mode_hl()
+
+    return string.format("%%#%s#  %s %%*", hl, result)
+end
+
+M.git_hunks = function()
+    local hunks = require("gitsigns").get_hunks()
+
+    ---@type table<Gitsigns.Hunk.Type, number>
+    local file_changes = vim.iter(hunks or {}):fold(
+        { add = 0, change = 0, delete = 0 },
+        ---@param acc table<Gitsigns.Hunk.Type, number>
+        ---@param hunk Gitsigns.Hunk.Hunk_Public
+        function(acc, hunk)
+            acc[hunk.type] = acc[hunk.type] + hunk.added.count + hunk.removed.count
+            return acc
+        end
+    )
+
+    local result = ""
+
+    if file_changes["add"] > 0 then
+        result = string.format("%%#%s# +%d%%*", "GitSignsAdd", file_changes["add"])
+    end
+    if file_changes["change"] > 0 then
+        result = result .. string.format("%%#%s# ~%d%%*", "GitSignsChange", file_changes["change"] / 2)
+    end
+    if file_changes["delete"] > 0 then
+        result = result .. string.format("%%#%s# -%d%%*", "GitSignsDelete", file_changes["delete"])
+    end
+
+    if result == "" then
+        return ""
+    end
+
+    return string.format("%s ", result)
+end
+
+M.dap_session = function()
+    if not package.loaded["dap"] then
+        return ""
+    end
+
+    local status = require("dap").status()
+
+    if status ~= "" then
+        status = string.format(" %s ", status)
+    end
+
+    local result = require("dap").session() and " " or ""
+
+    if result == "" then
+        return ""
+    end
+
+    return string.format("%s%%#%s#%s %%*", status, "StatusLineDapIcon", result)
+end
+
+M.vim_session = function()
+    local result = require("possession.session").get_session_name() or ""
+
+    if result == "" then
+        return ""
+    end
+
+    local hl = require("ui.shared").get_mode_hl()
+
+    return string.format("%%#%s# %s %%*", hl, result)
+end
+
+M.vim_macro = function()
+    ---@type string
+    local register = vim.fn.reg_recording()
+    if register == "" then
+        return ""
+    end
+
+    return string.format(" @%s ", register)
+end
+
+M.path_dir = function()
+    local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.")
+    local result = cwd:sub(1, 1) == "~" and cwd:sub(3) or cwd
+
+    if result == "" then
+        return ""
+    end
+
+    return string.format("%%#%s# %s %%*", "StatusLinePathDir", result)
+end
+
+M.path_file = function()
+    local result = vim.fn.expand("%:p:.")
+
+    if result == "" then
+        return ""
+    end
+
+    return string.format(" %s", result)
+end
+
+M.vim_spell = function()
+    local result = vim.wo.spell and "󰓆 " or ""
+
+    if result == "" then
+        return ""
+    end
+
+    return string.format("%%#%s# %s %%*", "StatusLineVimSpell", result)
+end
+
+M.auto_format = function()
+    local result = vim.g.disable_autoformat and "󰉪 " or ""
+
+    if result == "" then
+        return ""
+    end
+
+    return string.format("%%#%s# %s %%*", "StatusLineAutoFormat", result)
+end
+
+-- Copied from Lualine
+-- https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/components/searchcount.lua
+M.vim_search = function()
+    if vim.v.hlsearch == 0 then
+        return ""
+    end
+
+    -- In some scenarios, `searchcount` may throw an error
+    local ok, result = pcall(vim.fn.searchcount)
+
+    if not ok or next(result) == nil then
+        return ""
+    end
+
+    ---@cast result {current: number, maxcount:number, total:number}
+
+    local denominator = math.min(result.total, result.maxcount)
+    return string.format(" [%d/%d] ", result.current, denominator)
+end
+
+-- Copied from Lualine
+-- https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/components/selectioncount.lua
+M.vim_selection = function()
+    local get_selection = function()
+        local mode = vim.fn.mode(true)
+        local line_start, col_start = vim.fn.line("v"), vim.fn.col("v")
+        local line_end, col_end = vim.fn.line("."), vim.fn.col(".")
+        if mode:match("") then
+            return string.format("%dx%d", math.abs(line_start - line_end) + 1, math.abs(col_start - col_end) + 1)
+        elseif mode:match("V") or line_start ~= line_end then
+            return tostring(math.abs(line_start - line_end) + 1)
+        elseif mode:match("v") then
+            return tostring(math.abs(col_start - col_end) + 1)
+        else
+            return ""
+        end
+    end
+
+    local result = get_selection()
+
+    if result == "" then
+        return ""
+    end
+
+    return string.format("%%#%s# %s %%*", "StatusLineVimSelection", result)
+end
+
+vim.go.laststatus = 3
+
+M.render = function()
+    return table.concat({
+        M.git_branch(),
+        M.path_dir(),
+        M.path_file(),
+        "%#StatusLine#%=",
+        M.vim_macro(),
+        M.vim_search(),
+        M.git_hunks(),
+        M.vim_spell(),
+        M.auto_format(),
+        M.dap_session(),
+        M.vim_diagnostics(),
+        M.vim_selection(),
+        M.vim_session(),
+    })
+end
+
+vim.o.statusline = "%!v:lua.require'ui.statusline'.render()"
+
+return M

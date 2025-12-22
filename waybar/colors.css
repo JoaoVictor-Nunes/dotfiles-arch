@@ -1,0 +1,5 @@
+@import url("file:///home/joaoVictor/.cache/wal/colors-waybar.css");
+
+* {
+	background-color: @primary_container;
+}

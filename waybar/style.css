@@ -1,0 +1,67 @@
+@import "colors.css";
+* {
+    font-family: 'JetBrainsMono Nerd Font', monospace;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: @background;
+}
+
+#workspaces button.active {
+    color: @foreground;
+}
+
+#workspaces {
+    background-color: @background;
+    padding: 0 5.6px 0 0;
+}
+
+.modules-left {
+    margin-left: 12px;    
+}
+
+.modules-right {
+    margin-right: 12px;    
+}
+
+/* módulos com fundo preto */
+#battery,
+#pulseaudio,
+#backlight,
+#custom-weather,
+#cpu,
+#memory,
+#network,
+#clock,
+#custom-media {
+    background-color: #000000;
+    padding: 0 15px;
+    margin: 0 8px;
+    border-radius: 10px;
+}
+
+/* cores individuais */
+#clock {
+    color: @color3;
+}
+
+#network {
+    color: @color4;
+}
+
+#pulseaudio,
+#backlight,
+#battery,
+#memory,
+#cpu {
+    color: @foreground;
+}
+
+#custom-weather,
+#custom-media {
+    color: @color4;
+}
