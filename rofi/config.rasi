@@ -10,6 +10,8 @@ configuration {
     display-ssh: "SSH:";
     display-drun: "Apps:";
     display-window: "Windows:";
+    click-to-exit: true;
+    location: 0;
 }
 
 @theme "tokyo"
@@ -33,7 +35,7 @@ window {
 
     border: 1px;
     border-color: @bg3;
-    background-color:   @bg0;
+    background-color: @bg1;
 }
 
 mainbox {
@@ -76,7 +78,7 @@ listview {
     background-color:   transparent;
     margin:     12px 0 0;
     columns:    1;
-    lines:      2;
+    lines:     7; 
 
     fixed-height: false;
 }
