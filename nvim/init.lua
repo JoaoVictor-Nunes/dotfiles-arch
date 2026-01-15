@@ -31,6 +31,11 @@ end
 
 vim.opt.runtimepath:prepend(lazypath)
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "<filetype>" },
+    callback = function() vim.treesitter.start() end,
+})
+
 require("lazy").setup({
     { import = "plugins.common" },
     { import = "plugins.bare", cond = function() return not vim.g.vscode end },

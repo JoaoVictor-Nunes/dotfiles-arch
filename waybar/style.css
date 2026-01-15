@@ -1,4 +1,5 @@
 @import "colors.css";
+
 * {
     font-family: 'JetBrainsMono Nerd Font', monospace;
     font-weight: bold;
@@ -11,24 +12,75 @@ window#waybar {
     color: @background;
 }
 
+#workspaces {
+    /*background-color: @background;*/
+    background: alpha(@background,.4);
+    margin: 5px 5px 5px 5px;
+    padding: 6px 5px;
+    border-radius: 18px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    border: 0.5px solid #032412;
+}
+
+#workspaces button {
+    padding: 0px 5px;
+    margin: 0px 3px;
+    border-radius: 16px;
+    /*color: alpha(@color9,.4);*/
+    color: @color9;
+    background: alpha(@background,.5);
+    /*background-color: #2f354a;*/
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.empty {
+    opacity: 0.4;
+}
+
 #workspaces button.active {
     color: @foreground;
+    background: alpha(@background,.6);
+    border-radius: 16px;
+    min-width: 70px;
+    background-size: 500% 500%;
+    transition: all 0.3s ease-in-out;
 }
 
-#workspaces {
-    background-color: @background;
-    padding: 0 5.6px 0 0;
+#workspaces button.urgent {
+    background-color: #cdd6f4;
+    color: #2f354a;
+    padding: 0 0 0 5px;
+    border-radius: 16px;
+    min-width: 40px;
+    background-size: 300% 300%;
 }
 
-.modules-left {
-    margin-left: 12px;    
+#workspaces button:hover {
+    background-color: #cdd6f4;
+    color: #2f354a;
+    border-radius: 16px;
+    min-width: 50px;
+    background-size: 400% 400%;
 }
 
 .modules-right {
-    margin-right: 12px;    
+    padding:7px;
+    margin: 10px 10px 5px 5px;
+    border-radius:10px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
 }
 
-/* módulos com fundo preto */
+.modules-left {
+    padding:7px;
+    margin: 10px 10px 5px 5px;
+    border-radius:10px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+}
+
+/* Módulos com fundo */
 #battery,
 #pulseaudio,
 #backlight,
@@ -38,13 +90,12 @@ window#waybar {
 #network,
 #clock,
 #custom-media {
-    background-color: #000000;
-    padding: 0 15px;
-    margin: 0 8px;
+    padding: 0px 7px 0px 7px;  /* CORRIGIDO: com "px" */
+    margin: 0px 8px 0px 8px;    /* CORRIGIDO: com "px" */
     border-radius: 10px;
 }
 
-/* cores individuais */
+/* Cores individuais */
 #clock {
     color: @color3;
 }
@@ -55,8 +106,9 @@ window#waybar {
 
 #pulseaudio,
 #backlight,
-#battery,
 #memory,
+#disk,
+#bluetooth,
 #cpu {
     color: @foreground;
 }
@@ -64,4 +116,57 @@ window#waybar {
 #custom-weather,
 #custom-media {
     color: @color4;
+}
+
+#bluetooth {
+    border-radius: 0px 18px 18px 0px;
+}
+
+/* ========== ESTILOS DO TOOLTIP/CALENDÁRIO ========== */
+tooltip {
+    background-color: @background;
+    color: @foreground;
+    border: 2px solid @color2;
+    border-radius: 10px;
+    padding: 15px;
+    font-family: 'JetBrainsMono Nerd Font', monospace;
+    font-size: 14px;
+}
+
+tooltip calendar {
+    background-color: transparent;
+    color: @foreground;
+    padding: 5px;
+}
+
+tooltip calendar:selected {
+    background-color: @color2;
+    color: @background;
+    border-radius: 5px;
+}
+
+tooltip calendar.header {
+    color: @color4;
+    font-weight: bold;
+    border-bottom: 1px solid @color2;
+    margin-bottom: 5px;
+}
+
+tooltip calendar.button {
+    color: @color3;
+}
+
+tooltip calendar.highlight {
+    background-color: @color1;
+    color: @background;
+    border-radius: 3px;
+}
+
+tooltip calendar:indeterminate {
+    color: alpha(@foreground, 0.3);
+}
+
+/* Estilo específico para o calendário dentro do clock */
+#clock tooltip {
+    min-width: 250px;
 }

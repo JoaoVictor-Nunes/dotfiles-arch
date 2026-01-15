@@ -99,10 +99,26 @@ alias tk1  "tmux kill-session -t" # kill specific running session ( specify sess
 
 # sessionizer script
 bind \cf "tmux-sessionizer"
-
+ 
 # arrow left and right on alt + h/l
 bind \eh backward-char
 bind \el forward-char
+
+# Android Studio / React Native
+set -x JAVA_HOME /usr/lib/jvm/java-25-jdk/-openjdk
+set -x ANDROID_HOME ~/Android/Sdk 
+set -x ANDROID_SDK_ROOT $ANDROID_HOME
+
+# Adicionar ao PATH
+set -x PATH $ANDROID_HOME/tools $PATH
+set -x PATH $ANDROID_HOME/tools/bin $PATH
+set -x PATH $ANDROID_HOME/platform-tools $PATH
+set -x PATH $ANDROID_HOME/emulator $PATH
+
+set -x PATH ~/.npm-global/bin $PATH
+
+# Para React Native CLI
+set -x PATH $ANDROID_HOME/platform-tools $PATH
 
 # node stuffs
 set FNM_PATH "/home/joaoVictor/.local/share/fnm"

@@ -1,87 +1,158 @@
 {
-    "height": 33, // Waybar height (to be removed for auto height)
-    "spacing": 8, // Gaps between modules (4px)
-    "modules-left": ["clock", "custom/weather"],
-    "modules-center": ["hyprland/workspaces", "custom/media"],
-    "modules-right": ["cpu", "memory", "pulseaudio", "network", "battery"],
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
+  "height": 54, // Waybar height (to be removed for auto height)
+  "spacing": 8, // Gaps between modules (4px)
+  "modules-left": ["clock","custom/separator#line", "custom/media"],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": ["group/hardware", "network","bluetooth","pulseaudio" ],
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    }
+  },
+  "include": ["~/.config/waybar/modules.jsonc"],
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10
+  },
+"clock": {
+    "format": "{:%d %b, %I:%M %p}",
+    "format-alt": "{:%a %b %d, %G}",
+    "interval": 1,
+    "tooltip": true,
+    "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+        "mode": "year",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "on-click-right": "mode",
+        "format": {
+            "months": "<span color='#ffead3'><b>{}</b></span>",
+            "days": "<span color='#ecc6d9'><b>{}</b></span>",
+            "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+            "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+            "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
         }
+    }
+},
+	"group/hardware": {
+        "orientation": "inherit",
+        "modules": [
+            "cpu",
+            "memory",
+            "disk"
+        ]
     },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
+        "cpu": {
+        "format": "{usage}% 󰍛",
+        "interval": 1,
+        "format-alt-click": "click",
+        "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
+        "format-icons": [
+            "▁",
+            "▂",
+            "▃",
+            "▄",
+            "▅",
+            "▆",
+            "▇",
+            "█"
+        ],
+        "on-click-right": "exec flatpak run net.nokyan.Resources"
     },
-    "clock": {
-        "timezone": "Brazil/Fortaleza",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%I:%M %p}"
+     "custom/separator#dot": {
+        "format": "",
+        "interval": "once",
+        "tooltip": false
     },
-    "cpu": {
-        "format": "{usage}% ",
+    "custom/separator#dot-line": {
+        "format": "",
+        "interval": "once",
+        "tooltip": false
+    },
+    "custom/separator#line": {
+        "format": "|",
+        "interval": "once",
+        "tooltip": false
+    },
+    "custom/separator#blank": {
+        "format": "",
+        "interval": "once",
+        "tooltip": false
+    },
+    "custom/separator#blank_2": {
+        "format": "  ",
+        "interval": "once",
+        "tooltip": false
+    },
+    "custom/separator#blank_3": {
+        "format": "   ",
+        "interval": "once",
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "interval": 10,
+        "format": "{used:0.1f}G 󰾆",
+        "format-alt": "{percentage}% 󰾆",
+        "format-alt-click": "click",
+        "tooltip": true,
+        "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
+        "on-click-right": "kitty --title btop sh -c 'btop'"
     },
-  "custom/weather": {
-    "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Fortaleza+Brazil",
-    "return-type": "json",
-    "format": "{}",
-    "tooltip": true,
-    "interval": 3600
+    "disk": {
+        "interval": 30,
+        "path": "/",
+        "format": "{percentage_used}% 󰋊",
+        "format-alt-click": "click",
+        "format-alt": "{free} free  󰋊",
+        "tooltip": true,
+        "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
+    },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon} ",
-        "format-charging": "{capacity}% 󰂄",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%)  ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% ",
-        "format-bluetooth-muted": "󰝟 ",
-        "format-muted": "󰝟",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    }
-}
+/*  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "{essid} ({signalStrength}%)  ",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },*/
 
+    "network": {
+        "tooltip-format-ethernet": "{ifname}  {ipaddr}/{cidr}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "interval": 2,
+        "on-click-right": "kitty nmtui",
+        "format": "{}",
+        "format-alt-click": "click",
+        "format-alt": "  {ifname} | {ipaddr}/{cidr} | {gwaddr} {essid}",
+        "format-disconnected": "Disconnected",
+        "format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
+        "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} 󰈁"
+    },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% ",
+    "format-bluetooth-muted": "󰝟 ",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  }
+}
