@@ -1,9 +1,9 @@
 {
   "height": 54, // Waybar height (to be removed for auto height)
   "spacing": 8, // Gaps between modules (4px)
-  "modules-left": ["clock","custom/separator#line", "custom/media"],
+  "modules-left": ["clock", "custom/media"],
   "modules-center": ["hyprland/workspaces"],
-  "modules-right": ["group/hardware", "network","bluetooth","pulseaudio" ],
+  "modules-right": ["group/hardware","network","group/audio" ],
   "keyboard-state": {
     "numlock": true,
     "capslock": true,
@@ -45,6 +45,13 @@
             "cpu",
             "memory",
             "disk"
+        ]
+    },
+    "group/audio": {
+        "orientation": "inherit",
+        "modules": [
+            "bluetooth",
+            "pulseaudio"
         ]
     },
         "cpu": {

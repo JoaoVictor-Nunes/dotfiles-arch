@@ -15,16 +15,14 @@ window#waybar {
 #workspaces {
     /*background-color: @background;*/
     background: alpha(@background,.4);
-    margin: 5px 5px 5px 5px;
-    padding: 6px 5px;
+    margin: 5px;
+    padding: 7px 5px;
     border-radius: 18px;
-    margin-top: 7px;
-    margin-bottom: 7px;
     border: 0.5px solid #032412;
 }
 
 #workspaces button {
-    padding: 0px 5px;
+    padding: 0px 8px;
     margin: 0px 3px;
     border-radius: 16px;
     /*color: alpha(@color9,.4);*/
@@ -65,43 +63,56 @@ window#waybar {
 }
 
 .modules-right {
-    padding:7px;
+   /* padding:7px;
     margin: 10px 10px 5px 5px;
     border-radius:10px;
     background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);*/
+    }
 
 .modules-left {
-    padding:7px;
+    /*padding:7px;
     margin: 10px 10px 5px 5px;
     border-radius:10px;
     background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);*/
 }
 
-/* Módulos com fundo */
-#battery,
-#pulseaudio,
-#backlight,
-#custom-weather,
 #cpu,
 #memory,
-#network,
-#clock,
-#custom-media {
-    padding: 0px 7px 0px 7px;  /* CORRIGIDO: com "px" */
-    margin: 0px 8px 0px 8px;    /* CORRIGIDO: com "px" */
-    border-radius: 10px;
+#disk,
+#bluetooth,
+#pulseaudio {
+    padding: 0px 7px;
+    margin: 0px 8px;
 }
 
 /* Cores individuais */
+
 #clock {
     color: @color3;
+    padding: 0px 10px;
+    margin: 10px 5px 5px 10px;
+    border-radius:16px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
 }
 
 #network {
     color: @color4;
+    padding: 0px 7px;
+    margin: 10px 10px 5px 5px;
+    border-radius:16px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+}
+
+#hardware {
+    padding:0px 7px;
+    margin: 10px 5px 5px 10px;
+    border-radius:16px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
 }
 
 #pulseaudio,
@@ -113,13 +124,23 @@ window#waybar {
     color: @foreground;
 }
 
+#audio {
+    padding: 0px 7px;
+    margin: 10px 5px 5px 5px;
+    border-radius:16px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+}
+
+
 #custom-weather,
 #custom-media {
     color: @color4;
-}
-
-#bluetooth {
-    border-radius: 0px 18px 18px 0px;
+    padding:0px 7px 0px 5px;
+    margin: 10px 5px 5px 5px;
+    border-radius:16px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
 }
 
 /* ========== ESTILOS DO TOOLTIP/CALENDÁRIO ========== */
