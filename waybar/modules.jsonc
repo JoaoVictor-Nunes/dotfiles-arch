@@ -9,6 +9,7 @@
             "(.*) - Thunar": " $1",
             "(.*) - Discord": " $1",
             "(.*) - cava": " $1",
+            "(.*) - btop": " $1",           
             "Unity - (.*)": " $1",
             "Steam": " Steam",
             "WhatsDesk": " WhatsDesk",
@@ -39,6 +40,7 @@
             "(.*) - Chromium": " ",
             "(.*) - Zen Browser": " ",
             "class<cava>": "",
+            "class<btop>": " ",
             "class<zen>": " ",  // Adicionado usando a classe 'zen' do Zen Browser
             "(.*)VSCodium": "󰨞 ",
             "(.*) - Code - OSS": "󰨞 ",
@@ -92,6 +94,12 @@
     }
 },
 
+"custom/rofi": {
+    "format": "{icon} Pesquisar",
+    "format-icons": [""],
+    "tootltip-format": "应用领域",
+    "on-click": "rofi -show drun"
+},
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
@@ -157,7 +165,8 @@
         "tooltip": true
     },
 
-    "network": {
+    // NETWORK COM UPLOAD E DOWNLOAD
+ /*   "network": {
         "tooltip-format-ethernet": "{ifname}  {ipaddr}/{cidr}",
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "interval": 2,
@@ -169,7 +178,26 @@
         "format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
         "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} 󰈁"
     },
-
+*/
+"network": {
+    "interval": 5,
+    // Formato fixo - apenas ícone e nome
+    "format": "{icon} {essid}",
+    "format-ethernet": "󰈀 Ethernet",
+    "format-wifi": " {essid}",
+    "format-disconnected": "󰖪 Offline",
+    
+    // OU formato muito curto
+    "format": "{icon}",
+    "format-icons": {
+        "ethernet": "󰈀",
+        "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "disconnected": "󰖪"
+    },
+    
+    "tooltip-format": "{ifname}\nIP: {ipaddr}\n↓ {bandwidthDownBits} ({bandwidthDownBytes})\n↑ {bandwidthUpBits} ({bandwidthUpBytes})",
+    "on-click": "nm-connection-editor"
+},
     "bluetooth": {
 	    "format": "  ",
 	    "format-disabled": "  ",
@@ -260,14 +288,6 @@
         "exec": "~/.config/waybar/scripts/github.sh",
         "on-click": "xdg-open https://github.com/notifications",
         "tooltip": true
-    },
-
-    "custom/rofi": {
-        "format": "{icon} Cerca",
-        "format-icons": [""],
-        "tooltip-format": "Applicazioni",
-        "on-click": "rofi -show drun"
-
     },
 
     "custom/wl-gammarelay-temperature": {

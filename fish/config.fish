@@ -143,3 +143,4 @@ fastfetch
 
 # Created by `pipx` on 2025-12-02 14:17:38
 set PATH $PATH /home/joaoVictor/.local/bin
+set -gx PIPEWIRE_RUNTIME_DIR "/run/user/(id -u)"

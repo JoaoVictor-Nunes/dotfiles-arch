@@ -14,7 +14,7 @@ notify() {
 # Escolher wallpaper
 wallpaper_file=$(find "$wallpapers" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" -o -name "*.webp" \) | \
   sed "s|^$wallpapers/||" | \
-  rofi -dmenu -i -p "Selecione papel de parede: ")
+  rofi -dmenu -i -p "墙纸： ")
 
 [[ -z "$wallpaper_file" ]] && exit 0
 

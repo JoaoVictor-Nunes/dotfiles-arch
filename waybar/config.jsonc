@@ -2,8 +2,8 @@
   "height": 54, // Waybar height (to be removed for auto height)
   "spacing": 8, // Gaps between modules (4px)
   "modules-left": ["clock", "custom/media"],
-  "modules-center": ["hyprland/workspaces"],
-  "modules-right": ["group/hardware","network","group/audio" ],
+  "modules-center": ["custom/rofi", "hyprland/workspaces"],
+  "modules-right": ["network","group/hardware","group/audio" ],
   "keyboard-state": {
     "numlock": true,
     "capslock": true,
@@ -51,7 +51,8 @@
         "orientation": "inherit",
         "modules": [
             "bluetooth",
-            "pulseaudio"
+            "pulseaudio",
+            "pulseaudio#microphone"
         ]
     },
         "cpu": {
@@ -124,27 +125,7 @@
     "format": "{percent}% {icon}",
     "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
-/*  "network": {
-    // "interface": "wlp2*", // (Optional) To force the use of this interface
-    "format-wifi": "{essid} ({signalStrength}%)  ",
-    "format-ethernet": "{ipaddr}/{cidr} ",
-    "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "Disconnected ⚠",
-    "format-alt": "{ifname}: {ipaddr}/{cidr}"
-  },*/
 
-    "network": {
-        "tooltip-format-ethernet": "{ifname}  {ipaddr}/{cidr}",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-        "interval": 2,
-        "on-click-right": "kitty nmtui",
-        "format": "{}",
-        "format-alt-click": "click",
-        "format-alt": "  {ifname} | {ipaddr}/{cidr} | {gwaddr} {essid}",
-        "format-disconnected": "Disconnected",
-        "format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
-        "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} 󰈁"
-    },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
     "format": "{volume}% {icon}",

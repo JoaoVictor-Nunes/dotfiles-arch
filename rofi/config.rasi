@@ -1,4 +1,4 @@
-@import "~/.cache/wal/colors-rofi-dark"
+@import "~/.cache/wal/colors-rofi-dark.rasi"
 
 configuration {
 	/*---------- General setting ----------*/
@@ -13,6 +13,9 @@ configuration {
 /*	cache-dir: ;*/
 	steal-focus: false;
 /*	dpi: -1;*/
+	lines: 3;
+	columns: 1;
+	fixed-num-lines: true;
 
 	/*---------- Matching setting ----------*/
 	matching: "normal";
@@ -70,7 +73,7 @@ configuration {
 	display-windowcd: "Window CD";
 	display-run: "Run";
 	display-ssh: "SSH";
-	display-drun: "Apps";
+	display-drun: "Apps:";
 	display-combi: "Combi";
 	display-keys: "Keys";
 	display-filebrowser: "Files";
@@ -81,6 +84,7 @@ configuration {
 	sort: false;
 	threads: 0;
 	click-to-exit: true;
+    border-radius: 10px;
 /*	ignored-prefixes: "";*/
 /*	pid: "/run/user/1000/rofi.pid";*/
 
@@ -97,79 +101,103 @@ configuration {
       delay:  0;
     }
 
-	/*---------- Keybindings ----------*/
-/*
-	kb-primary-paste: "Control+V,Shift+Insert";
-	kb-secondary-paste: "Control+v,Insert";
-	kb-clear-line: "Control+w";
-	kb-move-front: "Control+a";
-	kb-move-end: "Control+e";
-	kb-move-word-back: "Alt+b,Control+Left";
-	kb-move-word-forward: "Alt+f,Control+Right";
-	kb-move-char-back: "Left,Control+b";
-	kb-move-char-forward: "Right,Control+f";
-	kb-remove-word-back: "Control+Alt+h,Control+BackSpace";
-	kb-remove-word-forward: "Control+Alt+d";
-	kb-remove-char-forward: "Delete,Control+d";
-	kb-remove-char-back: "BackSpace,Shift+BackSpace,Control+h";
-	kb-remove-to-eol: "Control+k";
-	kb-remove-to-sol: "Control+u";
-	kb-accept-entry: "Control+j,Control+m,Return,KP_Enter";
-	kb-accept-custom: "Control+Return";
-	kb-accept-custom-alt: "Control+Shift+Return";
-	kb-accept-alt: "Shift+Return";
-	kb-delete-entry: "Shift+Delete";
-	kb-mode-next: "Shift+Right,Control+Tab";
-	kb-mode-previous: "Shift+Left,Control+ISO_Left_Tab";
-	kb-mode-complete: "Control+l";
-	kb-row-left: "Control+Page_Up";
-	kb-row-right: "Control+Page_Down";
-	kb-row-down: "Down,Control+n";
-	kb-page-prev: "Page_Up";
-	kb-page-next: "Page_Down";
-	kb-row-first: "Home,KP_Home";
-	kb-row-last: "End,KP_End";
-	kb-row-select: "Control+space";
-	kb-screenshot: "Alt+S";
-	kb-ellipsize: "Alt+period";
-	kb-toggle-case-sensitivity: "grave,dead_grave";
-	kb-toggle-sort: "Alt+grave";
-	kb-cancel: "Escape,Control+g,Control+bracketleft";
-	kb-custom-1: "Alt+1";
-	kb-custom-2: "Alt+2";
-	kb-custom-3: "Alt+3";
-	kb-custom-4: "Alt+4";
-	kb-custom-5: "Alt+5";
-	kb-custom-6: "Alt+6";
-	kb-custom-7: "Alt+7";
-	kb-custom-8: "Alt+8";
-	kb-custom-9: "Alt+9";
-	kb-custom-10: "Alt+0";
-	kb-custom-11: "Alt+exclam";
-	kb-custom-12: "Alt+at";
-	kb-custom-13: "Alt+numbersign";
-	kb-custom-14: "Alt+dollar";
-	kb-custom-15: "Alt+percent";
-	kb-custom-16: "Alt+dead_circumflex";
-	kb-custom-17: "Alt+ampersand";
-	kb-custom-18: "Alt+asterisk";
-	kb-custom-19: "Alt+parenleft";
-	kb-select-1: "Super+1";
-	kb-select-2: "Super+2";
-	kb-select-3: "Super+3";
-	kb-select-4: "Super+4";
-	kb-select-5: "Super+5";
-	kb-select-6: "Super+6";
-	kb-select-7: "Super+7";
-	kb-select-8: "Super+8";
-	kb-select-9: "Super+9";
-	kb-select-10: "Super+0";
-	ml-row-left: "ScrollLeft";
-	ml-row-right: "ScrollRight";
-	ml-row-up: "ScrollUp";
-	ml-row-down: "ScrollDown";
-	me-select-entry: "MousePrimary";
-	me-accept-entry: "MouseDPrimary";
-	me-accept-custom: "Control+MouseDPrimary";
-    */
+}
+
+window {
+    transparency: "real";
+    background-color: @background;
+    opacity: 0.2;
+    border-radius: 24px;
+    border: 2px solid;
+    border-color: @foreground;
+}
+
+textbox {
+    padding:                     15px;
+    border-radius:               15px;
+    background-color:            @background;
+    text-color:                  @foreground;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+inputbar {
+    /* Container principal */
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: 2px solid ;
+	border-color: @foreground;
+    padding: 0px;
+    margin: 0px 0px 20px 0px;
+    spacing: 0px;
+    children: [prompt, entry];
+    orientation: horizontal;
+}
+
+/* Prompt (ícone/label) */
+prompt {
+    /* Lado esquerdo - ícone fixo */
+    background-color: transparent;
+    text-color: @foreground;
+    padding: 14px 10px;
+    border-radius: 14px 0px 0px 14px;
+    margin: 0px;
+    font: "JetBrainsMono Nerd Font Mono Bold 16px";
+    vertical-align: 0.5;
+}
+
+/* Entry (campo de texto) */
+entry {
+    /* Lado direito - campo de entrada */
+    background-color: transparent;
+    text-color: @foreground;
+    placeholder: ". . .";
+    placeholder-color: rgba(255, 255, 255, 0.5);
+    padding: 14px 10px;
+    border-radius: 0px 14px 14px 0px;
+    margin: 0px;
+    expand: true;
+    cursor: text;
+    font: "JetBrainsMono Nerd Font Mono 14px";
+}
+listbox {
+    spacing:                     20px;
+    padding:                     20px;
+    background-color:            transparent;
+    orientation:                 vertical;
+    children:                    [ "message", "listview" ];
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       6;
+    cycle:                       false;
+    dynamic:                     true;
+    scrollbar:                   true;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    
+    spacing:                     10px;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    cursor:                      "default";
+}
+mainbox {
+    enabled:                     true;
+    spacing:                     0px;
+    background-color:            transparent;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listbox" ];
+}
+element {
+    enabled:                     true;
+    spacing:                     10px;
+    padding:                     10px;
+    border-radius:               15px;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    cursor:                      pointer;
 }
