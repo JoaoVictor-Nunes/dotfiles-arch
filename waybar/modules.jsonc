@@ -23,7 +23,64 @@
         "separate-output": true
     },
 
-    "hyprland/workspaces": {
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10
+  },
+
+  // ============================= ITENS ESQUERDA =================================
+    
+  "custom/powermenu": {
+        "format": " ⏻ ",
+        "on-click": "~/.config/rofi/scripts/powermenu.sh"
+    },
+
+    "clock": {
+    "format": "{:%d %b, %I:%M %p}",
+    "format-alt": "{:%a %b %d, %G}",
+    "interval": 1,
+    "tooltip": true,
+    "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+        "mode": "year",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "on-click-right": "mode",
+        "format": {
+            "months": "<span color='#ffead3'><b>{}</b></span>",
+            "days": "<span color='#ecc6d9'><b>{}</b></span>",
+            "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+            "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+            "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        }
+    }
+},
+
+    "custom/media": {
+        "format": "{}",
+        "escape": true,
+        "return-type": "json",
+        "max-length": 40,
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl stop",
+        "smooth-scrolling-threshold": 10,
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "exec": "~/.config/waybar/scripts/mediaplayer.py", 
+        "tooltip-format": "{}"
+    },
+
+// ============================== ÍCONES CENTRO =================================  
+
+"custom/rofi": {
+    "format": "{icon}  Pesquisar",
+    "format-icons": [""],
+    "tootltip-format": "应用领域",
+    "on-click": "rofi -show drun"
+},
+
+"hyprland/workspaces": {
         "disable-scroll": true,
         "active-only": false,
         "all-outputs": true,
@@ -41,7 +98,7 @@
             "(.*) - Zen Browser": " ",
             "class<cava>": "",
             "class<btop>": " ",
-            "class<zen>": " ",  // Adicionado usando a classe 'zen' do Zen Browser
+            "class<zen>": " ", 
             "(.*)VSCodium": "󰨞 ",
             "(.*) - Code - OSS": "󰨞 ",
             "class<Codium>": "󰨞 ",
@@ -67,39 +124,145 @@
         }
     },
 
-    "tray": {
-        "icon-size": 16,
-        "spacing": 10
+
+// ============================= ÍCONES ESQUERDA ================================
+    
+// NETWORK COM UPLOAD E DOWNLOAD
+ /*   "network": {
+        "tooltip-format-ethernet": "{ifname}  {ipaddr}/{cidr}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "interval": 2,
+        "on-click-right": "kitty nmtui",
+        "format": "{}",
+        "format-alt-click": "click",
+        "format-alt": "  {ifname} | {ipaddr}/{cidr} | {gwaddr} {essid}",
+        "format-disconnected": "Disconnected",
+        "format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
+        "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} 󰈁"
+    },
+*/
+"network": {
+    "interval": 5,
+    "format": "{icon} {essid}",
+    "format-ethernet": "󰈀 Ethernet",
+    "format-wifi": " {essid}",
+    "format-disconnected": "󰖪 Offline",
+    
+    // OU formato muito curto
+/*    "format": "{icon}",
+    "format-icons": {
+        "ethernet": "󰈀",
+        "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "disconnected": "󰖪"*/
+    },    
+
+    // GRUPO HARDWARE 
+    	"group/hardware": {
+        "orientation": "inherit",
+        "modules": [
+            "cpu",
+            "memory",
+            "disk"
+        ]
     },
 
-"clock": {
-    "format": "{:%d %b, %I:%M %p}",
-    "format-alt": "{:%a %b %d, %G}",
-    "interval": 1,
-    "tooltip": true,
-    "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-    "calendar": {
-        "mode": "year",
-        "mode-mon-col": 3,
-        "weeks-pos": "right",
-        "on-scroll": 1,
-        "on-click-right": "mode",
-        "format": {
-            "months": "<span color='#ffead3'><b>{}</b></span>",
-            "days": "<span color='#ecc6d9'><b>{}</b></span>",
-            "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-            "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-            "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-        }
-    }
-},
+    // PROCESSADOR
+        "cpu": {
+        "format": "{usage}% 󰍛",
+        "interval": 1,
+        "format-alt-click": "click",
+        "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
+        "format-icons": [
+            "▁",
+            "▂",
+            "▃",
+            "▄",
+            "▅",
+            "▆",
+            "▇",
+            "█"
+        ],
+        "on-click-right": "exec flatpak run net.nokyan.Resources"
+    },
 
-"custom/rofi": {
-    "format": "{icon}  Pesquisar",
-    "format-icons": [""],
-    "tootltip-format": "应用领域",
-    "on-click": "rofi -show drun"
-},
+    // MEMÓRIA RAM
+    "memory": {
+        "interval": 10,
+        "format": "{used:0.1f}G 󰾆",
+        "format-alt": "{percentage}% 󰾆",
+        "format-alt-click": "click",
+        "tooltip": true,
+        "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
+        "on-click-right": "kitty --title btop sh -c 'btop'"
+    },
+
+    // ARMAZENAMENTO SSD
+    "disk": {
+        "interval": 30,
+        "path": "/",
+        "format": "{percentage_used}% 󰋊",
+        "format-alt-click": "click",
+        "format-alt": "{free} free  󰋊",
+        "tooltip": true,
+        "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
+    },
+
+    // GRUPO AUDIO 
+        "group/audio": {
+        "orientation": "inherit",
+        "modules": [
+            "bluetooth",
+            "pulseaudio",
+            "pulseaudio#microphone"
+        ]
+    },
+    
+    // BLUETOOTH
+    "bluetooth": {
+	    "format": "  ",
+	    "format-disabled": "  ",
+	    "format-connected": " {num_connections}",
+	    "tooltip-format": "{device_alias}",
+	    "tooltip-format-connected": " {device_enumerate}",
+	    "tooltip-format-enumerate-connected": "{device_alias}",
+        "on-click": "rfkill toggle bluetooth",
+        "on-click-right": "blueman-manager"
+    },
+
+
+    // SAÍDA DE ÁUDIO
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "tooltip": true,
+        "format-muted": "",
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+
+    // ENTRADA DE MICROFONE
+       "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " ",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5
+    },
+
+// ========================== ÍCONES ADICIONAIS ==================================  
+
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
@@ -123,35 +286,6 @@
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "tooltip": true,
-        "format-muted": "",
-        "on-click": "pamixer -t",
-        "on-scroll-up": "pamixer -i 5",
-        "on-scroll-down": "pamixer -d 5",
-        "scroll-step": 5,
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        }
-    },
-
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": " ",
-        "on-click": "pamixer --default-source -t",
-        "on-scroll-up": "pamixer --default-source -i 5",
-        "on-scroll-down": "pamixer --default-source -d 5",
-        "scroll-step": 5
-    },
-    
     "temperature": {
         "thermal-zone": 7,
         "interval": 5,
@@ -163,51 +297,7 @@
         "on-click": "kitty --title btop sh -c 'btop'",
         "tooltip-format": "Temperatura CPU",
         "tooltip": true
-    },
-
-    // NETWORK COM UPLOAD E DOWNLOAD
- /*   "network": {
-        "tooltip-format-ethernet": "{ifname}  {ipaddr}/{cidr}",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-        "interval": 2,
-        "on-click-right": "kitty nmtui",
-        "format": "{}",
-        "format-alt-click": "click",
-        "format-alt": "  {ifname} | {ipaddr}/{cidr} | {gwaddr} {essid}",
-        "format-disconnected": "Disconnected",
-        "format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
-        "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} 󰈁"
-    },
-*/
-"network": {
-    "interval": 5,
-    // Formato fixo - apenas ícone e nome
-    "format": "{icon} {essid}",
-    "format-ethernet": "󰈀 Ethernet",
-    "format-wifi": " {essid}",
-    "format-disconnected": "󰖪 Offline",
-    
-    // OU formato muito curto
-    "format": "{icon}",
-    "format-icons": {
-        "ethernet": "󰈀",
-        "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-        "disconnected": "󰖪"
-    },
-    
-    "tooltip-format": "{ifname}\nIP: {ipaddr}\n↓ {bandwidthDownBits} ({bandwidthDownBytes})\n↑ {bandwidthUpBits} ({bandwidthUpBytes})",
-    "on-click": "nm-connection-editor"
-},
-    "bluetooth": {
-	    "format": "  ",
-	    "format-disabled": "  ",
-	    "format-connected": " {num_connections}",
-	    "tooltip-format": "{device_alias}",
-	    "tooltip-format-connected": " {device_enumerate}",
-	    "tooltip-format-enumerate-connected": "{device_alias}",
-        "on-click": "rfkill toggle bluetooth",
-        "on-click-right": "blueman-manager"
-    },
+    },    
 
     "power-profiles-daemon": {
         "format": "{icon} ",
@@ -219,49 +309,6 @@
           "balanced": "",
           "power-saver": ""
         }
-    },
-
-    "custom/power_btn": {
-        "format" : "{icon}",
-        "format-icons": [""],
-        //"on-click": "sh -c'(sleep 0.5s; wlogout --protocol layer-shell)' & disown",
-        "on-click": "wlogout --protocol layer-shell",
-        "tooltip-format": "Opzioni di Spegnimento",
-        "tooltip": true
-    },
-
-    "custom/lock_screen": {
-        "format": "{icon}",        
-        "format-icons": [""],
-        "on-click": "swaylock",
-        "tooltip-format": "Schermata di Blocco",
-        "tooltip": true
-    },
-
-    "custom/updates": {
-        //"format": " {}",
-        "format": " {}",
-        // "tooltip-format": "Aggiorna il Sistema\n<small>Pacchetti: {}</small>",
-        "escape": true,
-        "return-type": "json",
-        "exec": "~/.config/waybar/scripts/updates.sh",
-        "restart-interval": 3600,
-        "on-click": "kitty --title Aggiornamenti sh -c ~/.config/waybar/scripts/installaupdates.sh",
-        "on-click-right": "kitty --title 'Pacchetti Installati' sh -c ~/.config/waybar/scripts/listpackages.sh",
-        "tooltip": true
-    },
-
-    "custom/wol": {
-        "format": "{icon}",
-        "format-icons": [""],
-        "tooltip-format": "Sveglia e Connetti ad Host:\n<small>{}</small>",
-        "escape": true,
-        "return-type":"json",
-        "exec":"~/.config/waybar/scripts/tailscaleinfo.sh",
-        "interval": 60,
-        "on-click": "~/.config/waybar/scripts/wol.sh",
-        "on-click-right": "kitty --title 'Connetti a '$(cat ~/.config/.secrets/hostname.txt)'' sh -c ~/.config/waybar/scripts/connectssh.sh",
-        "tooltip": true
     },
 
     "custom/swaync": {
@@ -280,16 +327,6 @@
         "tooltip": false
     }, 
 
-    "custom/github": {
-        "format": " {}",
-        "tooltip-format": "Notifiche GitHub",
-        "return-type": "json",
-        "interval": 60,
-        "exec": "~/.config/waybar/scripts/github.sh",
-        "on-click": "xdg-open https://github.com/notifications",
-        "tooltip": true
-    },
-
     "custom/wl-gammarelay-temperature": {
         "format": "{} {icon}",
         "format-alt": "{icon}", 
@@ -299,20 +336,5 @@
         "on-scroll-down": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -100",
         "tooltip-format": "Temperatura Schermo: {} K",
         "tooltip": true
-    },
-
-    "custom/media": {
-        "format": "{}",
-        "escape": true,
-        "return-type": "json",
-        "max-length": 40,
-        "on-click": "playerctl play-pause",
-        "on-click-right": "playerctl stop",
-        "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
-        "on-scroll-up": "playerctl next",
-        "on-scroll-down": "playerctl previous",
-        "exec": "~/.config/waybar/scripts/mediaplayer.py", // Script in resources/custom_modules folder
-        "tooltip": true,
-        "tooltip-format": "{}"
     }
 }

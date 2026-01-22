@@ -1,9 +1,23 @@
 {
-  "height": 54, // Waybar height (to be removed for auto height)
-  "spacing": 8, // Gaps between modules (4px)
-  "modules-left": ["custom/powermenu", "clock", "custom/media"],
-  "modules-center": ["custom/rofi", "hyprland/workspaces"],
-  "modules-right": ["network","group/hardware","group/audio" ],
+  "height": 54, 
+  "spacing": 8, 
+  "modules-left": [
+      "custom/powermenu", 
+      "clock", 
+      "custom/media"
+  ],
+  
+  "modules-center": [
+      "custom/rofi", 
+      "hyprland/workspaces"
+  ],
+  
+  "modules-right": [
+      "network",
+      "group/hardware",
+      "group/audio" 
+  ],
+
   "keyboard-state": {
     "numlock": true,
     "capslock": true,
@@ -13,139 +27,6 @@
       "unlocked": ""
     }
   },
-  "include": ["~/.config/waybar/modules.jsonc"],
-  "tray": {
-    // "icon-size": 21,
-    "spacing": 10
-  },
-"clock": {
-    "format": "{:%d %b, %I:%M %p}",
-    "format-alt": "{:%a %b %d, %G}",
-    "interval": 1,
-    "tooltip": true,
-    "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-    "calendar": {
-        "mode": "year",
-        "mode-mon-col": 3,
-        "weeks-pos": "right",
-        "on-scroll": 1,
-        "on-click-right": "mode",
-        "format": {
-            "months": "<span color='#ffead3'><b>{}</b></span>",
-            "days": "<span color='#ecc6d9'><b>{}</b></span>",
-            "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-            "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-            "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-        }
-    }
-},
-    "custom/powermenu": {
-        "format": " ⏻ ",
-        "on-click": "~/.config/rofi/scripts/powermenu.sh"
-    },
-
-	"group/hardware": {
-        "orientation": "inherit",
-        "modules": [
-            "cpu",
-            "memory",
-            "disk"
-        ]
-    },
-    "group/audio": {
-        "orientation": "inherit",
-        "modules": [
-            "bluetooth",
-            "pulseaudio",
-            "pulseaudio#microphone"
-        ]
-    },
-        "cpu": {
-        "format": "{usage}% 󰍛",
-        "interval": 1,
-        "format-alt-click": "click",
-        "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
-        "format-icons": [
-            "▁",
-            "▂",
-            "▃",
-            "▄",
-            "▅",
-            "▆",
-            "▇",
-            "█"
-        ],
-        "on-click-right": "exec flatpak run net.nokyan.Resources"
-    },
-     "custom/separator#dot": {
-        "format": "",
-        "interval": "once",
-        "tooltip": false
-    },
-    "custom/separator#dot-line": {
-        "format": "",
-        "interval": "once",
-        "tooltip": false
-    },
-    "custom/separator#line": {
-        "format": "|",
-        "interval": "once",
-        "tooltip": false
-    },
-    "custom/separator#blank": {
-        "format": "",
-        "interval": "once",
-        "tooltip": false
-    },
-    "custom/separator#blank_2": {
-        "format": "  ",
-        "interval": "once",
-        "tooltip": false
-    },
-    "custom/separator#blank_3": {
-        "format": "   ",
-        "interval": "once",
-        "tooltip": false
-    },
-    "memory": {
-        "interval": 10,
-        "format": "{used:0.1f}G 󰾆",
-        "format-alt": "{percentage}% 󰾆",
-        "format-alt-click": "click",
-        "tooltip": true,
-        "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
-        "on-click-right": "kitty --title btop sh -c 'btop'"
-    },
-    "disk": {
-        "interval": 30,
-        "path": "/",
-        "format": "{percentage_used}% 󰋊",
-        "format-alt-click": "click",
-        "format-alt": "{free} free  󰋊",
-        "tooltip": true,
-        "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
-    },
-  "backlight": {
-    // "device": "acpi_video1",
-    "format": "{percent}% {icon}",
-    "format-icons": ["", "", "", "", "", "", "", "", ""]
-  },
-
-  "pulseaudio": {
-    // "scroll-step": 1, // %, can be a float
-    "format": "{volume}% {icon}",
-    "format-bluetooth": "{volume}% ",
-    "format-bluetooth-muted": "󰝟 ",
-    "format-muted": "󰝟",
-    "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", "", ""]
-    },
-    "on-click": "pavucontrol"
-  }
+  
+  "include": ["~/.config/waybar/modules.jsonc"]
 }
