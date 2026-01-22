@@ -1,3 +1,5 @@
+/*=========================== UNIVERSAIS ==============================*/
+
 @import "colors.css";
 
 * {
@@ -7,18 +9,60 @@
     border-radius: 10px;
 }
 
-.modules-center {
-    margin: 0px 10px;
-}
 window#waybar {
     background-color: transparent;
     color: @background;
 }
 
-#workspaces {
-    /*background-color: @background;*/
+/* ====================== MÓDULOS ESQUERDA =========================== */
+
+#custom-powermenu {
+    color: @foreground;
+    background-color: alpha(@background,.6);
+    margin: 9px 0px 7px 10px;
+    padding: 0px 8px 0px 5px; 
+    border-radius: 18px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, .6)
+}
+
+#clock {
+    color: @color3;
+    padding: 5px 10px;
+    margin: 9px 2px 7px 0px;
+    border-radius:16px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+}
+
+#custom-weather,
+#custom-media {
+    color: @color4;
+    padding:0px 7px 0px 5px;
+    margin: 9px 0px 7px 2px;
+    border-radius:16px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+}
+
+/*========================= MÓDULOS CENTRO ============================*/
+
+.modules-center {
+    margin: 0px 10px;
+}
+
+#custom-rofi {
+    color: @foreground;
     background: alpha(@background,.4);
-    margin: 5px;
+    margin: 5px 0px 5px 0px;
+    padding: 7px 10px;
+    border-radius: 18px;
+    border: 0.5px solid #032412;
+
+}
+
+#workspaces {
+    background: alpha(@background,.4);
+    margin: 5px 0px 5px 0px;
     padding: 7px 5px;
     border-radius: 18px;
     border: 0.5px solid #032412;
@@ -28,10 +72,8 @@ window#waybar {
     padding: 0px 8px;
     margin: 0px 3px;
     border-radius: 16px;
-    /*color: alpha(@color9,.4);*/
     color: @color9;
     background: alpha(@background,.5);
-    /*background-color: #2f354a;*/
     transition: all 0.3s ease-in-out;
 }
 
@@ -66,17 +108,17 @@ window#waybar {
     transition: all 0.3s ease-in-out;
 }
 
-#custom-rofi {
-    color: @foreground;
-    background: alpha(@background,.4);
-    margin: 5px;
-    padding: 7px 10px;
-    border-radius: 18px;
-    border: 0.5px solid #032412;
+/*===================== MÓDULOS DIREITA =======================*/
 
+#network {
+    color: @color4;
+    padding: 0px 7px;
+    margin: 9px 3px 7px 3px;
+    border-radius:16px;
+    background: alpha(@background,.6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
 }
 
-#cpu,
 #memory,
 #disk,
 #bluetooth,
@@ -85,28 +127,9 @@ window#waybar {
     margin: 0px 8px;
 }
 
-/* Cores individuais */
-#clock {
-    color: @color3;
-    padding: 0px 10px;
-    margin: 10px 5px 5px 10px;
-    border-radius:16px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
-
-#network {
-    color: @color4;
-    padding: 0px 7px;
-    margin: 10px 3px 5px 3px;
-    border-radius:16px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
-
 #hardware {
     padding:0px 5px;
-    margin: 10px 3px 5px 5px;
+    margin: 9px 2px 7px 3px;
     border-radius:16px;
     background: alpha(@background,.6);
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
@@ -123,22 +146,13 @@ window#waybar {
 
 #audio {
     padding: 0px 7px;
-    margin: 10px 5px 5px 5px;
+    margin: 9px 10px 7px 5px;
     border-radius:16px;
     background: alpha(@background,.6);
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
 }
 
 
-#custom-weather,
-#custom-media {
-    color: @color4;
-    padding:0px 7px 0px 5px;
-    margin: 10px 5px 5px 5px;
-    border-radius:16px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
 
 /* ========== ESTILOS DO TOOLTIP/CALENDÁRIO ========== */
 tooltip {

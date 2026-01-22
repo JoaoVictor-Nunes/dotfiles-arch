@@ -95,7 +95,7 @@
 },
 
 "custom/rofi": {
-    "format": "{icon} Pesquisar",
+    "format": "{icon}  Pesquisar",
     "format-icons": [""],
     "tootltip-format": "应用领域",
     "on-click": "rofi -show drun"

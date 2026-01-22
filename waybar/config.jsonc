@@ -1,7 +1,7 @@
 {
   "height": 54, // Waybar height (to be removed for auto height)
   "spacing": 8, // Gaps between modules (4px)
-  "modules-left": ["clock", "custom/media"],
+  "modules-left": ["custom/powermenu", "clock", "custom/media"],
   "modules-center": ["custom/rofi", "hyprland/workspaces"],
   "modules-right": ["network","group/hardware","group/audio" ],
   "keyboard-state": {
@@ -39,6 +39,11 @@
         }
     }
 },
+    "custom/powermenu": {
+        "format": " ⏻ ",
+        "on-click": "~/.config/rofi/scripts/powermenu.sh"
+    },
+
 	"group/hardware": {
         "orientation": "inherit",
         "modules": [
