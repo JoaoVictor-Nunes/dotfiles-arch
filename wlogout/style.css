@@ -9,36 +9,33 @@
     }
 }
 
-* {
-    background-image: none;
-    box-shadow: none;
-}
-
 window {
-    background-color: rgba(0, 0, 0, 0.9); 
+    background-color: rgba(24, 27, 32, 0.2);
+    font-family: Fira Code Medium; 
 }
 
 button {
-    margin: 8px;
-    border-radius: 28px;
+    margin: 10px;
+    border-radius: 36px;
     padding: 6px;
-    border-width: 2px;
-    text-decoration-color: @foreground;
-    color: @foreground;
-    background-color: @background;
+    border-width: 4px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s ease-in;
+    color: #f0f0f0;
+    font-family: Fira Code Medium;
+    font-size: 16px;
+    background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 25%;
-    box-shadow: 0px 0px 0px black;
+    background-size: 20%;
+    box-shadow: 0px 0px 10px 2px transparent;
 }
 
 button:focus,
 button:active,
 button:hover {
-    /* 20% Overlay 2, 80% mantle
-    background-color: rgb(48, 50, 66);
-    outline-style: none; */
-    background-color: @color1; /*#b9b1e2;*/
+    outline-style: none; 
+    background-color: @color2;
     outline-style: none;
 }
 
@@ -47,8 +44,6 @@ button:hover {
         url("icons/logout.png"),
         url("/usr/local/share/wlogout/icons/logout.png")
     );
-    animation: appear 300ms ease-out forwards;
-    animation-delay: 0.1s;
 }
 
 #suspend {
@@ -56,8 +51,6 @@ button:hover {
         url("icons/suspend.png"),
         url("/usr/local/share/wlogout/icons/suspend.png")
     );
-    animation: appear 300ms ease-out forwards;
-    animation-delay: 0.2s;
 }
 
 #hibernate {
@@ -65,8 +58,6 @@ button:hover {
         url("icons/hibernate.png"),
         url("/usr/local/share/wlogout/icons/hibernate.png")
     );
-    animation: appear 300ms ease-out forwards;
-    animation-delay: 0.3s;
 }
 
 #shutdown {
@@ -74,8 +65,6 @@ button:hover {
         url("icons/shutdown.png"),
         url("/usr/local/share/wlogout/icons/shutdown.png")
     );
-    animation: appear 300ms ease-out forwards;
-    animation-delay: 0.4s;
 }
 
 #reboot {
@@ -83,8 +72,6 @@ button:hover {
         url("icons/reboot.png"),
         url("/usr/local/share/wlogout/icons/reboot.png")
     );
-    animation: appear 300ms ease-out forwards;
-    animation-delay: 0.5s;
 }
 
 #lock {
@@ -92,6 +79,5 @@ button:hover {
         url("icons/lock.png"),
         url("/usr/local/share/wlogout/icons/reboot.png")
     );
-    animation: appear 300ms ease-out forwards;
-    animation-delay: 0s;
 }
+
